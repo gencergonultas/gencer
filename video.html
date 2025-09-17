@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Video</title>
+    <meta property="og:title" id="ogTitle" content="Fragman.tv - Fragman Arşiviniz">
+    <meta property="og:type" content="video.other">
+    <meta property="og:description" id="ogDescription" content="En yeni Türk dizi fragmanlarını keşfedin.">
+    <meta property="og:image" id="ogImage" content="icons/icon-512x512.png">
+    <meta property="og:url" id="ogUrl" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#212121">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header">
+           <div class="header-left">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M27.3378 3.10002C27.0258 1.87443 26.0378 0.903247 24.7878 0.600019C22.6158 0.034394 13.9998 0 13.9998 0C13.9998 0 5.3838 0.034394 3.2118 0.600019C1.9618 0.903247 0.973802 1.87443 0.661802 3.10002C0.0838018 5.23441 0 10.0001 0 10.0001C0 10.0001 0.0838018 14.7657 0.661802 16.9001C0.973802 18.1257 1.9618 19.0969 3.2118 19.4C5.3838 19.9657 13.9998 20.0001 13.9998 20.0001C13.9998 20.0001 22.6158 19.9657 24.7878 19.4C26.0378 19.0969 27.0258 18.1257 27.3378 16.9001C27.9158 14.7657 27.9998 10.0001 27.9998 10.0001C27.9998 10.0001 27.9158 5.23441 27.3378 3.10002Z" fill="#FF0000"/>
+                    <path d="M11.1992 14.2857L18.4272 10L11.1992 5.71429V14.2857Z" fill="white"/>
+                </svg>
+                <h1>Fragman.tv</h1>
+            </a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Arşivde ara...">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+            <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+        </div>
+        <div class="header-right">
+            <button id="themeToggle" class="header-btn" title="Temayı Değiştir"><i class="fas fa-sun"></i></button>
+            <button id="statsBtn" class="header-btn" title="İstatistikler"><i class="fas fa-chart-pie"></i></button>
+            <button id="adminBtn" class="header-btn" title="Admin Paneli"><i class="fas fa-user-shield"></i></button>
+        </div>
+    </header>
+
+    <div class="page-container">
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-link active" data-filter="all"><i class="fas fa-home"></i><span>Tümü</span></a>
+                <hr>
+                <h3 class="sidebar-title">Kanallar</h3>
+                <a href="index.html#nowtv" class="nav-link" data-filter="nowtv"><i class="fas fa-tv"></i><span>NOW TV</span></a>
+                <a href="index.html#showtv" class="nav-link" data-filter="showtv"><i class="fas fa-tv"></i><span>Show TV</span></a>
+                <a href="index.html#kanald" class="nav-link" data-filter="kanald"><i class="fas fa-tv"></i><span>Kanal D</span></a>
+                <a href="index.html#atv" class="nav-link" data-filter="atv"><i class="fas fa-tv"></i><span>ATV</span></a>
+                <a href="index.html#trt" class="nav-link" data-filter="trt"><i class="fas fa-tv"></i><span>TRT</span></a>
+                <a href="index.html#star" class="nav-link" data-filter="star"><i class="fas fa-tv"></i><span>Star TV</span></a>
+                <a href="index.html#tv8" class="nav-link" data-filter="tv8"><i class="fas fa-tv"></i><span>TV8</span></a>
+                <a href="index.html#other" class="nav-link" data-filter="other"><i class="fas fa-tv"></i><span>Diğer</span></a>
+            </nav>
+        </aside>
+
+        <div class="content-wrapper">
+            <main class="main-content video-page">
+                <div id="video-player-container" class="video-player-container">
+                    </div>
+                <div id="noVideoFound" class="no-results" style="display: none;">
+                    Aradığınız video bulunamadı. Lütfen ana sayfaya dönün.
+                </div>
+                
+                <div class="video-info">
+                    <h1 id="video-title">Video Başlığı</h1>
+                    <div class="video-stats-and-actions">
+                        <div class="video-channel">
+                            <i class="fas fa-tv"></i> <span id="video-channel">Kanal Adı</span>
+                        </div>
+                        <div class="video-actions">
+                            <div class="action-item">
+                                <button id="likeBtn" class="action-btn like-btn"><i class="fas fa-thumbs-up"></i></button>
+                                <span id="likeCount">0</span>
+                            </div>
+                            <div class="action-item">
+                                <button id="dislikeBtn" class="action-btn dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                                <span id="dislikeCount">0</span>
+                            </div>
+                            <button id="shareBtn" class="action-btn share-btn"><i class="fas fa-share-alt"></i> Paylaş</button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="video-divider">
+
+                <div class="comments-section">
+                    <h3 class="section-title">Yorumlar (<span id="commentCount">0</span>)</h3>
+                    <form id="commentForm" class="comment-form">
+                        <input type="text" id="commenterName" placeholder="Adınız" required>
+                        <textarea id="commentText" placeholder="Yorumunuzu yazın..." required></textarea>
+                        <button type="submit" class="btn-submit">Yorum Yap</button>
+                    </form>
+                    <div id="commentsList" class="comments-list">
+                        </div>
+                </div>
+
+                <div class="recommended-videos-section">
+                    <h3 class="section-title">Önerilen Videolar</h3>
+                    <div class="videos-grid" id="recommendedGrid">
+                        </div>
+                </div>
+            </main>
+            <aside class="right-sidebar">
+                <div class="ad-container">
+                    <p>Reklam Alanı</p>
+                    <img src="https://via.placeholder.com/300x250.png?text=Reklam" alt="Reklam">
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <div id="shareModal" class="modal">...</div>
+    <div id="statsModal" class="modal">...</div>
+    <div id="loginModal" class="modal">...</div>
+    <div id="adminModal" class="modal">...</div>
+    
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

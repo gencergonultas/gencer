@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragman.tv - Fragman Arşiviniz</title>
+    <meta name="description" content="Kendi fragman arşivinizi oluşturun ve yönetin.">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#212121">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header">
+           <div class="header-left">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <a href="#" class="logo">
+                <svg viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M27.3378 3.10002C27.0258 1.87443 26.0378 0.903247 24.7878 0.600019C22.6158 0.034394 13.9998 0 13.9998 0C13.9998 0 5.3838 0.034394 3.2118 0.600019C1.9618 0.903247 0.973802 1.87443 0.661802 3.10002C0.0838018 5.23441 0 10.0001 0 10.0001C0 10.0001 0.0838018 14.7657 0.661802 16.9001C0.973802 18.1257 1.9618 19.0969 3.2118 19.4C5.3838 19.9657 13.9998 20.0001 13.9998 20.0001C13.9998 20.0001 22.6158 19.9657 24.7878 19.4C26.0378 19.0969 27.0258 18.1257 27.3378 16.9001C27.9158 14.7657 27.9998 10.0001 27.9998 10.0001C27.9998 10.0001 27.9158 5.23441 27.3378 3.10002Z" fill="#FF0000"/>
+                    <path d="M11.1992 14.2857L18.4272 10L11.1992 5.71429V14.2857Z" fill="white"/>
+                </svg>
+                <h1>Fragman.tv</h1>
+            </a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Arşivde ara...">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+            <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+        </div>
+        <div class="header-right">
+            <button id="themeToggle" class="header-btn" title="Temayı Değiştir"><i class="fas fa-sun"></i></button>
+            <button id="statsBtn" class="header-btn" title="İstatistikler"><i class="fas fa-chart-pie"></i></button>
+            <button id="adminBtn" class="header-btn" title="Admin Paneli"><i class="fas fa-user-shield"></i></button>
+        </div>
+    </header>
+
+    <div class="page-container">
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-filter="all"><i class="fas fa-home"></i><span>Tümü</span></a>
+                <hr>
+                <h3 class="sidebar-title">Kanallar</h3>
+                <a href="#" class="nav-link" data-filter="nowtv"><i class="fas fa-tv"></i><span>NOW TV</span></a>
+                <a href="#" class="nav-link" data-filter="showtv"><i class="fas fa-tv"></i><span>Show TV</span></a>
+                <a href="#" class="nav-link" data-filter="kanald"><i class="fas fa-tv"></i><span>Kanal D</span></a>
+                <a href="#" class="nav-link" data-filter="atv"><i class="fas fa-tv"></i><span>ATV</span></a>
+                <a href="#" class="nav-link" data-filter="trt"><i class="fas fa-tv"></i><span>TRT</span></a>
+                <a href="#" class="nav-link" data-filter="star"><i class="fas fa-tv"></i><span>Star TV</span></a>
+                <a href="#" class="nav-link" data-filter="tv8"><i class="fas fa-tv"></i><span>TV8</span></a>
+                <a href="#" class="nav-link" data-filter="other"><i class="fas fa-question-circle"></i><span>Diğer</span></a>
+                <hr>
+                <h3 class="sidebar-title">Reytingler</h3>
+                <a href="#" class="nav-link" id="ratingsLink" data-filter="ratings"><i class="fas fa-chart-line"></i><span>Günlük Reytingler</span></a>
+            </nav>
+        </aside>
+
+        <div class="content-wrapper">
+            <main class="main-content" id="mainContent">
+                <div id="videoGrid" class="videos-grid"></div>
+                <div id="noResults" class="no-results" style="display: none;">
+                    <i class="fas fa-video-slash"></i>
+                    <h3>Sonuç Bulunamadı</h3>
+                    <p>Aradığınız kriterlere uygun video bulunamadı.</p>
+                </div>
+                <div id="loadingIndicator" class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Videolar yükleniyor...</span>
+                </div>
+            </main>
+            <aside class="right-sidebar">
+                <div class="ad-container">
+                    300x250 Reklam Alanı
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <div id="ratingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📈 Günlük Reyting Raporları</h2>
+                <span class="close" id="closeRatings">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="ratings-container">
+                    <div class="blurred-content">
+                        <p>Günlük reyting raporları için tıklayın.</p>
+                    </div>
+                    <a href="https://tiak.com.tr/tablolar" target="_blank" class="ratings-btn">Reytingler İçin Siteye Git</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="statsModal" class="modal">
+        <div class="modal-content wide-modal">
+            <div class="modal-header">
+                <h2>📊 Arşiv İstatistikleri</h2>
+                <span class="close" id="closeStats">&times;</span>
+            </div>
+            <div class="modal-body" id="statsBody">
+                </div>
+        </div>
+    </div>
+    
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Admin Girişi</h2><span class="close" id="closeLogin">&times;</span></div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group"><label for="username">Kullanıcı Adı</label><input type="text" id="username" value="gencer" required></div>
+                    <div class="form-group"><label for="password">Şifre</label><input type="password" id="password" value="12345" required></div>
+                    <button type="submit" class="btn-submit">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content wide-modal">
+            <div class="modal-header"><h2>Admin Paneli</h2><span class="close" id="closeAdmin">&times;</span></div>
+            <div class="modal-body">
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="list">Videoları Yönet</button>
+                    <button class="tab-btn" data-tab="add">Yeni Video Ekle/Düzenle</button>
+                </div>
+                <div id="listTab" class="tab-content active">
+                    <div id="adminVideoList" class="video-list"></div>
+                </div>
+                <div id="addTab" class="tab-content">
+                    <form id="addVideoForm">
+                        <input type="hidden" id="videoIdToUpdate" value="">
+                        <div class="form-group">
+                            <label for="videoTitle">Başlık</label>
+                            <input type="text" id="videoTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="facebookEmbed">Facebook Video Gömme Kodu</label>
+                            <textarea id="facebookEmbed" name="facebookEmbed" rows="4" style="width:100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: var(--bg-main); color: var(--text-primary);" required></textarea>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="youtubeForThumbnail">YouTube URL (Thumbnail için)</label>
+                                <input type="url" id="youtubeForThumbnail" name="youtubeForThumbnail" placeholder="YouTube linkini yapıştırın...">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoThumbnail">Otomatik Thumbnail URL</label>
+                                <input type="url" id="videoThumbnail" name="thumbnail" readonly>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label for="videoChannel">Kanal Adı</label><input type="text" id="videoChannel" name="channel" required></div>
+                            <div class="form-group"><label for="videoPlatform">Platform</label>
+                                <select id="videoPlatform" name="platform" required>
+                                    <option value="nowtv">NOW TV</option>
+                                    <option value="showtv">Show TV</option>
+                                    <option value="kanald">Kanal D</option>
+                                    <option value="atv">ATV</option>
+                                    <option value="trt">TRT</option>
+                                    <option value="star">Star TV</option>
+                                    <option value="tv8">TV8</option>
+                                    <option value="other">Diğer</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label for="videoViews">İzlenme</label><input type="number" id="videoViews" name="views" value="0"></div>
+                            <div class="form-group"><label for="videoLikes">Beğeni</label><input type="number" id="videoLikes" name="likes" value="0"></div>
+                        </div>
+                        <button type="submit" class="btn-submit">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
